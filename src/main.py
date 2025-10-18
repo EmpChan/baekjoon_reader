@@ -1,5 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
+from makedoc import make_problem_doc
+from docx import Document
 
 def fetch_baekjoon_problem(problem_id: str):
     url = f"https://www.acmicpc.net/problem/{problem_id}"
@@ -50,5 +52,21 @@ def fetch_baekjoon_problem(problem_id: str):
     }
 
 if __name__ == "__main__":
-    pid = input("문제 번호를 입력하세요: ")
-    data = fetch_baekjoon_problem(pid)
+    doc = Document()
+    prob_list = open("prob_list.txt","r").readlines()
+    for i in prob_list:
+        print(i)
+        data = fetch_baekjoon_problem(i.strip())
+        make_problem_doc(
+            doc=doc,
+            pid=i.strip(),
+            title=data["title"],
+            tag="imple",
+            description=data["description"],
+            input_spec=data["input_spec"],
+            output_spec=data["output_spec"],
+            example_input=data["examples"][0]["input"],
+            example_output=data["examples"][0]["output"]
+        )
+    
+    doc.save("output/problems.docx")

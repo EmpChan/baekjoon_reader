@@ -34,18 +34,17 @@ def make_problem_doc(doc,pid, title, tag, description, input_spec, output_spec, 
                     run.font.name = '맑은 고딕'
                     run.font.size = Pt(10)
 
-# ✅ 테스트 실행
-if __name__ == "__main__":
-    make_problem_doc(
-        title="블랙잭",
-        tag="브루트포스",
-        description=(
-            "카지노에서 제일 인기 있는 게임 블랙잭의 규칙은 상당히 쉽다. "
-            "카드의 합이 21을 넘지 않는 한도 내에서, 카드의 합을 최대한 크게 만드는 게임이다."
-        ),
-        input_spec="첫째 줄에 카드의 개수 N과 M이 주어진다.",
-        output_spec="M을 넘지 않으면서 M에 가장 가까운 카드 3장의 합을 출력한다.",
-        example_input="5 21\n5 6 7 8 9",
-        example_output="21",
-        pid="2798"
-    )
+def make_problem_txt(title, tag, description, input_spec, output_spec, example_input, example_output, pid):
+    txt = open(f"problem_{pid}.txt", "w", encoding="utf-8")
+    txt.write(f"{title}\n(백준 {pid})\n\n")
+    txt.write(f"태그 : {tag}                  [ ] 완료\n\n")
+    txt.write(f"{description}\n\n")
+    txt.write("입력 형식\n")
+    txt.write(f"{input_spec}\n\n")
+    txt.write("출력 형식\n")
+    txt.write(f"{output_spec}\n\n")
+    txt.write("입력 예시\n")
+    txt.write(f"{example_input}\n\n")
+    txt.write("출력 예시\n")
+    txt.write(f"{example_output}\n")
+    txt.close()
